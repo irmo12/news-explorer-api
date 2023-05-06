@@ -1,0 +1,16 @@
+{
+    "extends": ["airbnb", "airbnb/hooks"],
+    "rules": {
+      "no-underscore-dangle": "off",
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^(req|res|next)$" }],
+      "no-undef": "off",
+      "no-restricted-globals": "off",
+      "consistent-return": "off",
+      "prefer-const": "off",
+      "no-param-reassign": "off"
+    },
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+      "requireConfigFile": false
+    }
+  }
