@@ -1,8 +1,7 @@
-const Article = require('../models/Article');
-const { OK, CREATED } = require('../utils/utils');
+const Article = require('../models/article');
+const { CREATED } = require('../utils/utils');
 const BadReq = require('../errors/bad-req-err');
 const NotFound = require('../errors/not-found-err');
-const Unauthorized = require('../errors/unauthorized-err');
 const Forbidden = require('../errors/forbidden-err');
 
 const getArticles = (req, res, next) => {

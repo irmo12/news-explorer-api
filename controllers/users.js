@@ -80,29 +80,8 @@ const createUser = (req, res, next) => {
     });
 };
 
-const patchUser = (req, res, next) => {
-  User.findByIdAndUpdate(
-    req.user._id,
-    { name: req.body.name, about: req.body.about },
-    { new: true, runValidators: true },
-  )
-    .orFail()
-    .then((user) => res.status(OK).send(user))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadReq('Validation error, check data'));
-      } else if (err.name === 'DocumentNotFoundError') {
-        next(new NotFound('no such user'));
-      } else {
-        next(err);
-      }
-    });
-};
-
 module.exports = {
   getUser,
   createUser,
-  patchUser,
-  patchUserAvatar,
   login,
 };

@@ -2,12 +2,12 @@
   "name": "news-explorer-api",
   "version": "1.0.0",
   "description": "login and register users",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "npm run test/index.js",
+    "test": "npm run test/app.js",
     "lint": "npx eslint .",
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",

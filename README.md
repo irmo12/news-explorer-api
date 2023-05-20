@@ -1,2 +1,2 @@
 # news-explorer-api
-backend for registration &amp; authentication of users for news explorer
+backend for registration and authentication of users for news explorer
