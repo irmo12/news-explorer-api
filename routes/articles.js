@@ -6,8 +6,6 @@ const validateURL = require('../middleware/validateURL');
 const {
   getArticles,
   createArticle,
-  likeArticle,
-  unlikeArticle,
   deleteArticle,
 } = require('../controllers/articles');
 
@@ -17,32 +15,16 @@ router.post(
   auth,
   celebrate({
     body: Joi.object().keys({
-      name: Joi.string().min(2).max(30).required(),
+      keyword: Joi.string().required(),
+      title: Joi.string().required(),
+      text: Joi.string().required(),
+      date: Joi.string().required(),
+      source: Joi.string().required(),
       link: Joi.string().required().custom(validateURL),
+      image: Joi.string().required().custom(validateURL),
     }),
   }),
   createArticle,
-);
-router.put(
-  '/likes/:id',
-  auth,
-  celebrate({
-    params: Joi.object().keys({
-      id: Joi.string().hex().length(24).required(),
-    }),
-  }),
-  likeArticle,
-);
-
-router.delete(
-  '/likes/:id',
-  auth,
-  celebrate({
-    params: Joi.object().keys({
-      id: Joi.string().hex().length(24).required(),
-    }),
-  }),
-  unlikeArticle,
 );
 
 router.delete(

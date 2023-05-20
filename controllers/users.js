@@ -14,7 +14,7 @@ const getUser = (req, res, next) => {
     .orFail(new NotFound('no user by that id'))
     .then((user) => {
       res.send(({
-        id, email, name, about, avatar,
+        email, name,
       } = user));
     })
     .catch(next);
@@ -43,21 +43,21 @@ const login = (req, res, next) => {
 
 const createUser = (req, res, next) => {
   let {
-    email, password, name, about, avatar,
+    email, password, name,
   } = req.body;
   bcrypt
     .hash(password, 10)
     .catch(next)
     .then((hash) => User.create({
-      email, password: hash, name, about, avatar,
+      email, password: hash, name,
     }))
     .then((user) => {
       ({
-        email, name, about, avatar,
+        email, name,
       } = user);
       res.status(CREATED).send({
         data: {
-          email, name, about, avatar,
+          email, name,
         },
       });
     })
@@ -91,26 +91,6 @@ const patchUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadReq('Validation error, check data'));
-      } else if (err.name === 'DocumentNotFoundError') {
-        next(new NotFound('no such user'));
-      } else {
-        next(err);
-      }
-    });
-};
-
-const patchUserAvatar = (req, res, next) => {
-  const { avatar } = req.body;
-  User.findByIdAndUpdate(
-    req.user._id,
-    { avatar },
-    { new: true, runValidators: true },
-  )
-    .orFail()
-    .then((user) => res.status(OK).send(user))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadReq('bad link'));
       } else if (err.name === 'DocumentNotFoundError') {
         next(new NotFound('no such user'));
       } else {

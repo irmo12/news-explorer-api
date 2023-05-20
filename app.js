@@ -11,7 +11,6 @@ const { login, createUser } = require('./controllers/users');
 const router = require('./routes');
 const errorCentral = require('./middleware/errorCentral');
 const NotFound = require('./errors/not-found-err');
-const validateURL = require('./middleware/validateURL');
 
 mongoose.connect('mongodb://localhost:27017/NEWSEXPLORERDB', {
   useNewUrlParser: true,
@@ -53,9 +52,6 @@ app.post(
     body: Joi.object().keys({
       email: Joi.string().email().required(),
       password: Joi.string().required(),
-      name: Joi.string().min(2).max(30),
-      about: Joi.string().min(2).max(30),
-      avatar: Joi.string().custom(validateURL),
     }),
   }),
   createUser,

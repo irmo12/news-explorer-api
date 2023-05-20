@@ -15,50 +15,17 @@ const getArticles = (req, res, next) => {
 };
 
 const createArticle = (req, res, next) => {
-  const { name, link } = req.body;
+  const {
+    keyword, title, text, date, source, link, image,
+  } = req.body;
   const owner = req.user._id;
-  Article.create({ name, link, owner })
+  Article.create({
+    keyword, title, text, date, source, link, image, owner,
+  })
     .then((resArticle) => res.status(CREATED).send(resArticle))
     .catch((err) => {
       if (err.name === 'validationError') {
         next(new BadReq('Invalid Article information'));
-      } else {
-        next(err);
-      }
-    });
-};
-
-const likeArticle = (req, res, next) => {
-  Article.findByIdAndUpdate(
-    req.params.id,
-    { $addToSet: { likes: req.user._id } },
-    { new: true },
-  )
-    .orFail()
-    .then((resArticle) => res.status(OK).send(resArticle))
-    .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        next(new NotFound('no such Article'));
-      } else if (err.name === 'CastError') {
-        next(new BadReq('cast error, check body'));
-      } else {
-        next(err);
-      }
-    });
-};
-
-const unlikeArticle = (req, res, next) => {
-  Article.findByIdAndUpdate(
-    req.params.id,
-    { $pull: { likes: req.user._id } },
-    { new: true },
-  )
-    .then((resArticle) => res.status(OK).send(resArticle))
-    .catch((err) => {
-      if (err.name === 'DocumentNotFoundError') {
-        next(new NotFound('no such Article'));
-      } else if (err.name === 'CastError') {
-        next(new BadReq('cast error, check body'));
       } else {
         next(err);
       }
@@ -86,7 +53,5 @@ const deleteArticle = (req, res, next) => {
 module.exports = {
   getArticles,
   createArticle,
-  likeArticle,
-  unlikeArticle,
   deleteArticle,
 };
