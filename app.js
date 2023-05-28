@@ -8,17 +8,18 @@ const cors = require('cors');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const limiter = require('./utils/limiter');
 const { login, createUser } = require('./controllers/users');
+const auth = require('./middleware/auth');
 const router = require('./routes');
 const errorCentral = require('./middleware/errorCentral');
 const NotFound = require('./errors/not-found-err');
 
-mongoose.connect('mongodb://localhost:27017/NEWSEXPLORERDB', {
-  useNewUrlParser: true,
-});
-
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, DB_ADDRESS } = process.env;
 
 const app = express();
+
+mongoose.connect(DB_ADDRESS, {
+  useNewUrlParser: true,
+});
 
 app.use(requestLogger);
 app.use(limiter);
@@ -50,6 +51,7 @@ app.post(
   '/signup',
   celebrate({
     body: Joi.object().keys({
+      userName: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().required(),
     }),
@@ -57,7 +59,7 @@ app.post(
   createUser,
 );
 
-app.use('*', (req, res, next) => (new NotFound('Requested resource does not exist')));
+app.use('*', auth, (req, res, next) => (next(new NotFound('Requested resource does not exist'))));
 
 app.use(errorLogger);
 

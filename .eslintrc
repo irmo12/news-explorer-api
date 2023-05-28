@@ -1,14 +1,18 @@
 {
-    "extends": ["airbnb", "airbnb/hooks"],
+    "extends": ["airbnb-base"],
+    "globals": {
+      "_id": "readonly",
+      "next": "readonly",
+      "err":"off"
+    },
     "rules": {
       "no-underscore-dangle": "off",
       "no-unused-vars": ["error", { "argsIgnorePattern": "^(req|res|next)$" }],
-      "no-undef": "off",
-      "no-restricted-globals": "off",
-      "consistent-return": "off",
-      "prefer-const": "off",
-      "no-param-reassign": "off"
-    },
+      "no-global-assign":"warn",
+      "no-undef":"warn",
+      "prefer-const":"warn",
+      "consistent-return":"warn"
+     },
     "parser": "@babel/eslint-parser",
     "parserOptions": {
       "requireConfigFile": false

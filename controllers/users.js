@@ -13,9 +13,14 @@ const getUser = (req, res, next) => {
   User.findById({ _id })
     .orFail(new NotFound('no user by that id'))
     .then((user) => {
-      res.send(({
-        email, name,
-      } = user));
+      ({
+        email, userName,
+      } = user);
+      res.status(OK).send({
+        data: {
+          email, userName,
+        },
+      });
     })
     .catch(next);
 };
@@ -43,21 +48,21 @@ const login = (req, res, next) => {
 
 const createUser = (req, res, next) => {
   let {
-    email, password, name,
+    email, password, userName,
   } = req.body;
   bcrypt
     .hash(password, 10)
     .catch(next)
     .then((hash) => User.create({
-      email, password: hash, name,
+      email, password: hash, userName,
     }))
     .then((user) => {
       ({
-        email, name,
+        email, userName,
       } = user);
       res.status(CREATED).send({
         data: {
-          email, name,
+          email, userName,
         },
       });
     })

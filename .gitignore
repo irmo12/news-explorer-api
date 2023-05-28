@@ -15,4 +15,4 @@ node_modules
 .vscodetou
 
 #dotenv
-.envcd 
+.env
