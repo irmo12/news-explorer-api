@@ -81,7 +81,7 @@ const createUser = (req, res, next) => {
           new Conflict('A user with that email is already registered'),
         );
       }
-      next(err);
+      return next(err);
     });
 };
 

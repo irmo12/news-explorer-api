@@ -1,17 +1,12 @@
 {
     "extends": ["airbnb-base"],
-    "globals": {
-      "_id": "readonly",
-      "next": "readonly",
-      "err":"off"
-    },
+
     "rules": {
       "no-underscore-dangle": "off",
       "no-unused-vars": ["error", { "argsIgnorePattern": "^(req|res|next)$" }],
       "no-global-assign":"warn",
       "no-undef":"warn",
       "prefer-const":"warn",
-      "consistent-return":"warn"
      },
     "parser": "@babel/eslint-parser",
     "parserOptions": {
