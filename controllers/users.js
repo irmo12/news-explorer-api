@@ -13,12 +13,9 @@ const getUser = (req, res, next) => {
   User.findById({ _id })
     .orFail(new NotFound('no user by that id'))
     .then((user) => {
-      ({
-        email, userName,
-      } = user);
       res.status(OK).send({
         data: {
-          email, userName,
+          email: user.email, userName: user.userName,
         },
       });
     })
@@ -48,8 +45,9 @@ const login = (req, res, next) => {
 
 const createUser = (req, res, next) => {
   let {
-    email, password, userName,
+    email, userName,
   } = req.body;
+  const password = req.body;
   bcrypt
     .hash(password, 10)
     .catch(next)
