@@ -3,9 +3,5 @@
     "rules": {
       "no-underscore-dangle": "off",
       "no-unused-vars": ["error", { "argsIgnorePattern": "^(req|res|next)$" }]
-     },
-    "parser": "@babel/eslint-parser",
-    "parserOptions": {
-      "requireConfigFile": false
-    }
-  }
+     }
+}

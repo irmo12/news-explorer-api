@@ -5,7 +5,7 @@ const NotFound = require('../errors/not-found-err');
 const Forbidden = require('../errors/forbidden-err');
 
 const getArticles = (req, res, next) => {
-  Article.find({})
+  Article.find({ owner: req.user._id })
     .orFail()
     .then((Articles) => {
       res.send(Articles);

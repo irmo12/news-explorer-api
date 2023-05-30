@@ -1,6 +1,6 @@
 module.exports = (err, req, res, next) => {
   /* eslint-disable no-param-reassign */
-  err.statusCode ||= 500;
+  if (!err.statusCode) { err.statusCode = 500; }
   /* eslint-enable no-param-reassign */
   res.status(err.statusCode).send({
     message:
