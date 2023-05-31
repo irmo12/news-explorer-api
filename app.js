@@ -13,7 +13,7 @@ const router = require('./routes');
 const errorCentral = require('./middleware/errorCentral');
 const NotFound = require('./errors/not-found-err');
 
-const { PORT = 3000, DB_ADDRESS } = process.env;
+const { PORT = 3000, DB_ADDRESS = 'mongodb://localhost:27017/NEWSEXPLORERDB' } = process.env;
 
 const app = express();
 
