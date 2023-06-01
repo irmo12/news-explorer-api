@@ -45,21 +45,21 @@ const login = (req, res, next) => {
 
 const createUser = (req, res, next) => {
   let {
-    email, userName,
+    email, name,
   } = req.body;
-  const password = req.body;
+  const { password } = req.body;
   bcrypt
     .hash(password, 10)
     .then((hash) => User.create({
-      email, password: hash, name: userName,
+      email, password: hash, name,
     }))
     .then((user) => {
       ({
-        email, userName,
+        email, name,
       } = user);
       res.status(CREATED).send({
         data: {
-          email, userName,
+          email, name,
         },
       });
     })
