@@ -15,7 +15,7 @@ const getUser = (req, res, next) => {
     .then((user) => {
       res.status(OK).send({
         data: {
-          email: user.email, userName: user.userName,
+          userName: user.userName,
         },
       });
     })
