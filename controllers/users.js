@@ -16,6 +16,7 @@ const getUser = (req, res, next) => {
       res.status(OK).send({
         data: {
           name: user.name,
+          _id: user._id
         },
       });
     })
