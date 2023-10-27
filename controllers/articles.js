@@ -36,7 +36,7 @@ const deleteArticle = (req, res, next) => {
     .orFail()
     .then((resArticle) => {
       if (!resArticle.owner.equals(req.user._id)) {
-        return next(new Forbidden('only the article poster may delete it'));
+        return next(new Forbidden('only the article owner may delete it'));
       }
       return resArticle.deleteOne().then(() => res.send(resArticle));
     })
